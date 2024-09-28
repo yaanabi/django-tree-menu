@@ -13,7 +13,7 @@ class Menu(models.Model):
         return f"'{self.name}' menu"
 
 class MenuItem(models.Model):
-    name = models.CharField(vermax_length=100)
+    name = models.CharField(max_length=100)
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='subitems')
     url = models.URLField(verbose_name='Plain URL link to menu item content',max_length=255, null=True, blank=True)
