@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
+{% load draw_menu %}
+
 {% block title %}
   <title>Home</title>
 {% endblock %}
 
 {% block content %}
   <h1>Home page</h1>
+  {% draw_menu 'Home' %}
 {% endblock %}

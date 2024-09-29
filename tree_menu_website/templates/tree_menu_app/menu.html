@@ -1,0 +1,21 @@
+{% if menu_name %}
+  <h3>{{ menu_name }}</h3>
+{% endif %}
+<ul>
+  {% for item in menu %}
+    {% if item.parent_menu.pk == parent %}
+      {% comment %} {% if item.pk in menu_items_with_children %}
+        {% endcomment %}
+        <li>
+          {{ item.name }}
+          {% include 'tree_menu_app/menu.html' with parent=item.pk menu_name='' %}
+        </li>
+        {% comment %}
+      {% else %}
+        {% endcomment %}
+        {% comment %} <li>{{ item.name }}</li> {% endcomment %}
+        {% comment %}
+      {% endif %} {% endcomment %}
+    {% endif %}
+  {% endfor %}
+</ul>
