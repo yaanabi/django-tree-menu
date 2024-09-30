@@ -1,5 +1,5 @@
 from django import template
-
+from django.http import Http404
 from ..models import MenuItem
 
 register = template.Library()
@@ -9,7 +9,6 @@ register = template.Library()
 def draw_menu(menu_name: str):
     menu = MenuItem.objects.filter(
         menu__name=menu_name).select_related('parent_menu')
-
     # ----------------------------------------------------------------------
     # using it with prefetch_related('submenus') will make a total of two queries,
     # but it wont render empty ul's in html for menu items without submenus

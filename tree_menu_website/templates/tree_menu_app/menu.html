@@ -1,21 +1,36 @@
+{% comment %} {% if menu_name %}
+  <h3>{{ menu_name }}</h3>
+{% endif %}
+<ul>
+  {% for item in menu %}
+    {% if item.parent_menu.pk == parent %}
+      {% if item.pk in menu_items_with_children %}
+        <li>
+          {{ item.name }}
+          {% include 'tree_menu_app/menu.html' with parent=item.pk menu_name='' %}
+        </li>
+      {% else %}
+        <li>{{ item.name }}</li>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</ul> {% endcomment %}
+
 {% if menu_name %}
   <h3>{{ menu_name }}</h3>
 {% endif %}
 <ul>
   {% for item in menu %}
     {% if item.parent_menu.pk == parent %}
-      {% comment %} {% if item.pk in menu_items_with_children %}
-        {% endcomment %}
-        <li>
-          {{ item.name }}
-          {% include 'tree_menu_app/menu.html' with parent=item.pk menu_name='' %}
-        </li>
-        {% comment %}
-      {% else %}
-        {% endcomment %}
-        {% comment %} <li>{{ item.name }}</li> {% endcomment %}
-        {% comment %}
-      {% endif %} {% endcomment %}
+      <li>
+        {% if item.url %}
+          <a href="{{ item.url }}">{{ item.name }}</a>
+        {% elif item.slug_name_url %}
+          <a href="{% url 'menu_item_detail' menu_item_slug=item.slug_name_url %}">{{ item.name }}</a>
+        {% endif %}
+
+        {% include 'tree_menu_app/menu.html' with parent=item.pk menu_name='' %}
+      </li>
     {% endif %}
   {% endfor %}
 </ul>
