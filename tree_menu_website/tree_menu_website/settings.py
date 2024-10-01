@@ -30,19 +30,22 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Debug toolbar
-INTERNAL_IPS = [
-    # ...
-    '127.0.0.1',
-]
+# # Debug toolbar
+# INTERNAL_IPS = [
+#     # ...
+#     '127.0.0.1',
+# ]
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin', 'django.contrib.auth',
-    'django.contrib.contenttypes', 'django.contrib.sessions',
-    'django.contrib.messages', 'django.contrib.staticfiles',
-    'tree_menu_app.apps.TreeMenuAppConfig', 'debug_toolbar' # Debug toolbar
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'tree_menu_app.apps.TreeMenuAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +56,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware', # Debug toolbar
 ]
 
 ROOT_URLCONF = 'tree_menu_website.urls'

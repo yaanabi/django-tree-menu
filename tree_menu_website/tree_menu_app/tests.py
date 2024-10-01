@@ -1,6 +1,4 @@
-from django.test import RequestFactory, TestCase
-from django.template import Template, Context
-from django.urls import reverse
+from django.test import TestCase
 
 
 # Create your tests here.

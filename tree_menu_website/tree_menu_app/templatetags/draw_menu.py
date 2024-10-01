@@ -1,7 +1,5 @@
 from django import template
 
-from django.db import connection
-
 from ..models import MenuItem
 
 register = template.Library()
