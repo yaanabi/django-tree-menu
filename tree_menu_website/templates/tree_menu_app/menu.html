@@ -1,21 +1,3 @@
-{% comment %} {% if menu_name %}
-  <h3>{{ menu_name }}</h3>
-{% endif %}
-<ul>
-  {% for item in menu %}
-    {% if item.parent_menu.pk == parent %}
-      {% if item.pk in menu_items_with_children %}
-        <li>
-          {{ item.name }}
-          {% include 'tree_menu_app/menu.html' with parent=item.pk menu_name='' %}
-        </li>
-      {% else %}
-        <li>{{ item.name }}</li>
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-</ul> {% endcomment %}
-
 {% if menu_name %}
   <h3>{{ menu_name }}</h3>
 {% endif %}
@@ -23,12 +5,10 @@
   {% for item in menu %}
     {% if item.parent_menu.pk == parent %}
       <li>
-        {% if item.url %}
-          <a href="{{ item.url }}">{{ item.name }}</a>
-        {% elif item.slug_name_url %}
-          <a href="{% url 'menu_item_detail' menu_item_slug=item.slug_name_url %}">{{ item.name }}</a>
+        <a href="{% url 'menu_item_detail' menu_item_slug=item.get_url_slug %}">{{ item.name }}</a>
+        {% if request_url_slug == item.get_url_slug %}
+          <span>-- You are here</span>
         {% endif %}
-
         {% include 'tree_menu_app/menu.html' with parent=item.pk menu_name='' %}
       </li>
     {% endif %}

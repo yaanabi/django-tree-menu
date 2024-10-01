@@ -1,12 +1,14 @@
 from django import template
-from django.http import Http404
+
+from django.db import connection
+
 from ..models import MenuItem
 
 register = template.Library()
 
 
-@register.inclusion_tag('tree_menu_app/menu.html')
-def draw_menu(menu_name: str):
+@register.inclusion_tag('tree_menu_app/menu.html', takes_context=True)
+def draw_menu(context, menu_name: str):
     menu = MenuItem.objects.filter(
         menu__name=menu_name).select_related('parent_menu')
     # ----------------------------------------------------------------------
@@ -18,5 +20,7 @@ def draw_menu(menu_name: str):
     return {
         'menu': menu,
         # 'menu_items_with_children': menu_items_with_children,
+        'request_url_slug': context['request'].path.replace('/', ''),
+        'parent': None,  # For first iteraton of menu items parent is not set 
         'menu_name': menu_name
     }
